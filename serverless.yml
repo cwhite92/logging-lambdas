@@ -25,10 +25,9 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "s3:*"
-      Resource:
-        - "arn:aws:s3:::logwatch.logs.production"
-        - "arn:aws:s3:::logwatch.logs.production/*"
+        - "lambda:InvokeFunction"
+        - "lambda:InvokeAsync"
+      Resource: "*"
 
 
 # you can overwrite defaults here
@@ -65,11 +64,19 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  ingest:
-    name: logwatch-ingest
-    handler: handler.ingest
+  ingest-entrypoint:
+    name: logwatch-ingest-entrypoint
+    handler: ingest-entrypoint/handler.entrypoint
     events:
       - http: POST logs
+
+  ingest:
+    name: logwatch-ingest
+    handler: ingest/handler.ingest
+
+  index:
+      name: logwatch-index
+      handler: index/handler.index
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

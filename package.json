@@ -1,7 +1,10 @@
 {
   "name": "ingest",
   "dependencies": {
+    "elasticsearch": "^13.2.0",
     "joi": "^10.6.0",
+    "moment": "^2.18.1",
+    "mysql": "mysqljs/mysql",
     "object-sizeof": "^1.2.0",
     "uuid": "^3.1.0"
   }
